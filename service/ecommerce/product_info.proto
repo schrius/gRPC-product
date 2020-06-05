@@ -1,5 +1,8 @@
 // ProductInfo.proto
 syntax = "proto3"; // service definition proto3
+
+option go_package = "github.com/schrius/grpc-product/service/ecommerce";
+
 package ecommerce; // package use to prevent name clashes between protocol message types and generate code
 
 service ProductInfo { // define the service interface of a gRPC service
@@ -11,6 +14,7 @@ message Product { // message formt/type of Product
     string id = 1; 
     string name = 2;
     string description = 3;
+    float price = 4;
 }
 
 message ProductID { // user defnied type for product id
