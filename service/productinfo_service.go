@@ -12,7 +12,7 @@ import (
 // server is used to implemented ecommerce/product_info
 // abstraction server
 type server struct {
-	proudctMap map[string]*pb.Product
+	productMap map[string]*pb.Product
 }
 
 // AddProduct implements ecommerce.AddProduct
@@ -21,14 +21,14 @@ type server struct {
 func (s *server) AddProduct(ctx context.Context, in *pb.Product) (*pb.ProductID, error) {
 	out, err := uuid.NewV4()
 	if err != nil {
-		return nil, status.Error(codes.Internal, "Error while generating Product ID", err)
+		return nil, status.Errorf(codes.Internal, "Error while generating Product ID", err)
 	}
 
 	in.Id = out.String()
 	if s.productMap == nil {
 		s.productMap = make(map[string]*pb.Product)
 	}
-	s.proudctMap[in.Id] = in
+	s.productMap[in.Id] = in
 	return &pb.ProductID{Value: in.Id}, status.New(codes.OK, "").Err()
 }
 
