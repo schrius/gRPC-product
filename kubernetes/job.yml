@@ -1,0 +1,15 @@
+# gRPC client application runs as a Kubernetes job
+apiVersion: batch/v1
+kind: Job 
+metadata:
+  name: grpc-productinfo-client 
+spec:
+  completions: 1 
+  parallelism: 1 
+  template:
+    spec:
+      containers:
+      - name: grpc-productinfo-client 
+        image: schrius/grpc-productinfo-client 
+      restartPolicy: Never
+  backoffLimit: 4
